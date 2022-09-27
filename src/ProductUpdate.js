@@ -12,6 +12,13 @@ const ProductUpdate = ()=> {
   const [price, setPrice ] = useState(0);
   const [numberInStock, setNumberInStock ] = useState(0);
   const [error, setError] = useState({});
+  const [rating, setRating] = useState('');
+
+  const ratings = [
+    'GREAT',
+    'OK',
+    'MEH'
+  ];
 
   useEffect(()=> {
     const product = products.find( product => product.id === id);
@@ -19,12 +26,13 @@ const ProductUpdate = ()=> {
       setName(product.name);
       setPrice(product.price);
       setNumberInStock(product.numberInStock);
+      setRating(product.rating);
     }
   }, [products, id]);
 
   const update = async(ev)=> {
     ev.preventDefault();
-    const updated = { id, name, price, numberInStock };
+    const updated = { id, name, price, numberInStock, rating };
     try {
       await dispatch(updateProduct(updated, navigate));
     }
@@ -40,7 +48,7 @@ const ProductUpdate = ()=> {
   return (
     <form onSubmit={ update }>
 <pre>
-      { /*JSON.stringify(error, null, 2) */}
+      { /* JSON.stringify(error, null, 2) */}
 </pre>
       <ul>
         {
@@ -64,6 +72,19 @@ const ProductUpdate = ()=> {
       <div>
         <label>Number In Stock</label>
         <input value={ numberInStock } onChange={ ev => setNumberInStock(ev.target.value)}/>
+      </div>
+      <div>
+        <label>Rating { rating }</label>
+        <select value={ rating } onChange={ ev => setRating(ev.target.value)}>
+          <option value=''>-- select a rating --</option>
+          {
+            ratings.map( rating => {
+              return (
+                <option key={ rating }>{ rating }</option>
+              );
+            })
+          }
+        </select>
       </div>
       <button>Update</button>
     </form>

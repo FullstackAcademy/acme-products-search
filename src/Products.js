@@ -14,6 +14,7 @@ const Products = ()=> {
             <li key={ product.id }>
               { product.name }
               (${ product.price })
+              <label>{ product.rating }</label>
               <br />
               Number In Stock { product.numberInStock }
               <Link to={`/products/${product.id}`}>Edit</Link>

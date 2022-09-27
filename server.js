@@ -5,6 +5,7 @@ const path = require('path');
 app.use(express.json());
 
 
+app.use('/public', express.static('public'));
 app.use('/dist', express.static('dist'));
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
 

@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { UUID, UUIDV4, STRING, DECIMAL, INTEGER } = Sequelize;
+const { UUID, UUIDV4, ENUM, STRING, DECIMAL, INTEGER } = Sequelize;
 
 const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme_products_db');
 
@@ -8,6 +8,14 @@ const Product = conn.define('product', {
     type: UUID,
     defaultValue: UUIDV4,
     primaryKey: true
+  },
+  rating: {
+    type: ENUM('GREAT', 'OK', 'MEH'),
+    defaultValue: 'OK',
+    allowNull: false,
+    validate: {
+      isIn: [['GREAT', 'OK', 'MEH']]
+    }
   },
   name: {
     type: STRING(20),
@@ -44,6 +52,10 @@ const seed = ()=> {
   return Promise.all([
     Product.create({ name: 'foo', price: 2.99, numberInStock: 7}),
     Product.create({ name: 'bar', price: 2.99, numberInStock: 7}),
+    Product.create({ name: 'bazz', price: 2.99, numberInStock: 7}),
+    Product.create({ name: 'quq', price: 2.99, numberInStock: 7}),
+    Product.create({ name: 'fizz', price: 2.99, numberInStock: 7}),
+    Product.create({ name: 'buzz', price: 2.99, numberInStock: 7}),
   ]);
 };
 
