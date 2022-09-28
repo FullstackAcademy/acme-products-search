@@ -56,6 +56,7 @@ const seed = ()=> {
     Product.create({ name: 'quq', price: 2.99, numberInStock: 7}),
     Product.create({ name: 'fizz', price: 2.99, numberInStock: 7}),
     Product.create({ name: 'buzz', price: 2.99, numberInStock: 7}),
+    Product.create({ name: 'arp', price: 2.99, numberInStock: 7}),
   ]);
 };
 
